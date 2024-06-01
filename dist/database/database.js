@@ -22,7 +22,7 @@ const storeUserDetails = (uid, email, username, country, profile_picture) => {
                 username: username,
                 profile_picture: profile_picture,
                 bio: "",
-                linkk: "",
+                link: "",
                 gender: ["prefer not say", ""],
                 followers: [],
                 following: [],
