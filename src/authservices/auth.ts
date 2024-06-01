@@ -12,20 +12,20 @@ export const onRegister = (email: string,username: string, password: string, cou
                 }
             }
         } catch (error) {
-            reject(false);
+            reject(error);
         }
     })
 }
 
 // Function to log in to an existing user account
-export const onLogin = (email: string, password: string): Promise<string| any> => {
+export const onLogin = (email: string, password: string): Promise<boolean| any> => {
     return new Promise(async (resolve, reject): Promise<void> => {
         try {
             await firebase.auth().signInWithEmailAndPassword(email, password);
             resolve(true);
         } catch (error) {
-            console.log(error)
-            reject(false);
+            //console.log(error)
+            reject(error);
         }
     })
 }
