@@ -14,7 +14,9 @@ const firebase_1 = require("../firebaseconfig/firebase");
 const storeUserDetails = (uid, email, username, country, profile_picture) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            yield firebase_1.db.collection("users").add({
+            yield firebase_1.db.collection("users")
+                .doc(email)
+                .set({
                 user_id: uid,
                 email: email,
                 username: username,
