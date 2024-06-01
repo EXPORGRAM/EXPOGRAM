@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, ScrollView, StatusBar } from 'react-native'
+import { View, Text, SafeAreaView, ScrollView, StatusBar, Platform } from 'react-native'
 import React from 'react'
 import { COLORS } from '../../Utils/Constants'
 import Header from '../Components/Home/Header'
@@ -7,8 +7,9 @@ import Post from '../Components/Home/Post'
 import { POST } from '../../Utils/Data'
 
 export default function HomeScreen() {
+  console.log(Platform.OS)
   return (
-    <ScrollView style={{paddingTop: StatusBar.currentHeight || 0,backgroundColor: COLORS.black}}>
+    <ScrollView style={{paddingTop: StatusBar.currentHeight || 30,backgroundColor: COLORS.black}}>
       <Header />
       <Stories />
       <ScrollView>
