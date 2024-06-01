@@ -11,7 +11,7 @@ export const storeUserDetails = (uid: string, email: string, username: string, c
                 username: username,
                 profile_picture:profile_picture,
                 bio: "",
-                linkk: "",
+                link: "",
                 gender: ["prefer not say", ""],
                 followers: [],
                 following: [],
