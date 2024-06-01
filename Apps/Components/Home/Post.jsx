@@ -10,16 +10,19 @@ import { GestureDetector } from 'react-native-gesture-handler';
 import Animated from "react-native-reanimated";
 import { TouchableWithoutFeedback } from 'react-native';
 import { useState } from 'react';
+import useTimeAgo from '../../../Utils/useTimeAgo'
 
 export default function Post({post}) {
   return (
     <View className="mb-8">
-        <Divider width={0.7} orientation='vertical' />
+        {/* <Divider width={0.7} orientation='vertical' /> */}
         <PostHeader post={post} /> 
         <PostImage post={post} />
         <PostFooter />
         <Likes post={post} />
         <Caption post={post} />
+        <Comments post={post} />
+        <Date post={post} />
     </View>
   )
 }
@@ -119,8 +122,8 @@ const Caption = ({ post }) => {
     const [showLongCaption, setShowLongCaption] = useState(false);
   
     return (
-      <View className="flex-row mt-1 mb-3 mx-3">
-        {post.caption.length <= 0 ? null : post.caption.length < 120 ? (
+      <View className="flex-row mt-1 mx-3">
+        {post.caption.length <= 0 ? null : post.caption.length < 82 ? (
           <Text className="text-white font-bold">
             {post.user.toLowerCase() + " "}
             <Text className="ml-1 font-normal">{post.caption}</Text>
@@ -136,7 +139,7 @@ const Caption = ({ post }) => {
                 <Text className="ml-1 font-normal">{post.caption}</Text>
               ) : (
                 <Text className="ml-1 font-normal">
-                  {post.caption.slice(0, 100)}
+                  {post.caption.slice(0, 80)}
                   <Text className=" text-gray-400"> ...more</Text>
                 </Text>
               )}
@@ -146,6 +149,54 @@ const Caption = ({ post }) => {
       </View>
     );
   };
+
+  const Comments = ({ post }) => {
+  
+    return (
+      <View>
+        {post.comments.length <= 0 ? (
+          null
+        ) :(
+          <View>
+            <TouchableOpacity style={styles.container}>
+              <Text className="text-gray-400 font-normal">
+                {
+                  post.comments.length>1?`View all ${post.comments.length} comments`:'View 1 comment'
+                }
+              </Text>
+            </TouchableOpacity>
+            <Text numberOfLines={1} className="text-white font-bold mx-3 w-2/3">
+            {post.comments[0].user.toLowerCase() + " "}
+            <Text className="ml-1 font-normal">{post.comments[0].comment}</Text>
+          </Text>
+          </View>
+
+        )}
+        <TouchableOpacity className='mt-2'>
+            <View style={styles.container}>
+              <Image
+                source={require("../../../assets/images/team-1.jpg")}
+                className="w-[30px] h-[30px] rounded-full "
+              />
+              <Text className="text-[18px] text-gray-400">Add a comment...</Text>
+            </View>
+          </TouchableOpacity>
+      </View>
+    );
+  };
+
+  const Date = ({ post }) => {
+    const { timeAgoLong } = useTimeAgo();
+  
+    return (
+      <View className="mx-3 mt-1">
+        <Text className="text-gray-400 text-[13px]">
+          {post.createdAt && timeAgoLong(post.createdAt)}
+        </Text>
+      </View>
+    );
+  };
+  
 
 const styles = StyleSheet.create({
     headerImageWithRainbow: {
@@ -200,5 +251,12 @@ const styles = StyleSheet.create({
       },
       headerIcons: {
         marginRight: 15,
+      },
+      container: {
+        marginHorizontal: 12,
+        marginVertical: 2,
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
       }
   });

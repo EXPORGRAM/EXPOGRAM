@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <View className="justify-between items-center flex-row mx-5 mb-2">
         <TouchableOpacity>
-            <Image source={require('../../../assets/images/header-logo.png')} className="w-[110px] h-[55px] " resizeMode='contain' />
+            <Image source={require('../../../assets/images/header-logo.png')} className="w-[170px] h-[60px] " resizeMode='contain' />
         </TouchableOpacity>
         <View className="flex-row items-center gap-4">
             <TouchableOpacity >

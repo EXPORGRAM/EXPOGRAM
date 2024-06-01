@@ -36,9 +36,14 @@ export const POST =[
         likes: 1232,
         caption: 'Train ride to Mogwarts Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam delectus accusamus corporis dolores placeat blanditiis perspiciatis perferendis, porro incidunt numquam',
         pic: USERS[0].image,
+        createdAt: 2345,
         comments: [
             {
                 user: 'armani.dev',
+                comment: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam delectus accusamus corporis dolores placeat blanditiis perspiciatis perferendis, porro incidunt numquam.'
+            },
+            {
+                user: 'theqazman',
                 comment: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam delectus accusamus corporis dolores placeat blanditiis perspiciatis perferendis, porro incidunt numquam.'
             },
             {
@@ -53,13 +58,10 @@ export const POST =[
         likes: 7664,
         caption: 'Once upon a time, the End sdfghjk lkjh hjkrtyu klkjtrtyui klrer tyukjt rtyukjtrty htrerthghty  kjy  ryr',
         pic: USERS[1].image,
+        createdAt: 234567612,
         comments: [
             {
-                user: 'theqazman',
-                comment: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam delectus accusamus corporis dolores placeat blanditiis perspiciatis perferendis, porro incidunt numquam.'
-            },
-            {
-                user: 'armani.dev',
+                user: 'theoneman',
                 comment: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam delectus accusamus corporis dolores placeat blanditiis perspiciatis perferendis, porro incidunt numquam.'
             }
         ]
@@ -70,6 +72,7 @@ export const POST =[
         likes: 1232,
         caption: 'Train ride to Mogwarts',
         pic: USERS[2].image,
+        createdAt: 2345332,
         comments: [
             {
                 user: 'armani.dev',
@@ -87,6 +90,7 @@ export const POST =[
         likes: 1232,
         caption: 'Train ride to Mogwarts',
         pic: USERS[3].image,
+        createdAt: 9876589,
         comments: [
             {
                 user: 'armani',
