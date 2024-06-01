@@ -3,7 +3,9 @@ import { db,firebase } from "../firebaseconfig/firebase";
 export const storeUserDetails = (uid: string, email: string, username: string, country: string, profile_picture: string) => {
     return new Promise(async (resolve, reject) => {
         try {
-            await db.collection("users").add({
+            await db.collection("users")
+            .doc(email)
+            .set({
                 user_id: uid,
                 email: email,
                 username: username,

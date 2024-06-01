@@ -1,7 +1,7 @@
 import { firebase } from "../firebaseconfig/firebase";  
 import { storeUserDetails } from "../database/database";
 
-export const onRegister = (email: string,username: string, password: string, country: string, profile_picture: string): Promise<boolean> => {
+export const onRegister = (email: string,username: string, password: string, country: string, profile_picture: string): Promise<boolean | any> => {
     return new Promise(async (resolve, reject): Promise<void>=> {  
         try {
             const authUsers = await firebase.auth().createUserWithEmailAndPassword(email, password);
@@ -18,7 +18,7 @@ export const onRegister = (email: string,username: string, password: string, cou
 }
 
 // Function to log in to an existing user account
-export const onLogin = (email: string, password: string): Promise<boolean| any> => {
+export const onLogin = (email: string, password: string): Promise<boolean | any> => {
     return new Promise(async (resolve, reject): Promise<void> => {
         try {
             await firebase.auth().signInWithEmailAndPassword(email, password);
