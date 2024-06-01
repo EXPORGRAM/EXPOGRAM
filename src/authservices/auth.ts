@@ -1,12 +1,12 @@
 import { firebase } from "../firebaseconfig/firebase";  
 import { storeUserDetails } from "../database/database";
 
-export const onRegister = (email: string,username: string, password: string, country: string): Promise<boolean> => {
+export const onRegister = (email: string,username: string, password: string, country: string, profile_picture: string): Promise<boolean> => {
     return new Promise(async (resolve, reject): Promise<void>=> {  
         try {
             const authUsers = await firebase.auth().createUserWithEmailAndPassword(email, password);
             if(authUsers.user?.uid && authUsers.user.email){
-                const create = await storeUserDetails(authUsers.user.uid,authUsers.user.email, username, country);
+                const create = await storeUserDetails(authUsers.user.uid,authUsers.user.email, username, country, profile_picture);
                 if(create){
                     resolve(true);
                 }
