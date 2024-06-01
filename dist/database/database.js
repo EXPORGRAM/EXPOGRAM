@@ -11,14 +11,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.storeUserDetails = void 0;
 const firebase_1 = require("../firebaseconfig/firebase");
-const storeUserDetails = (uid, email, username, country) => {
+const storeUserDetails = (uid, email, username, country, profile_picture) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             yield firebase_1.db.collection("users").add({
                 user_id: uid,
                 email: email,
                 username: username,
-                profifile_picture: "",
+                profile_picture: profile_picture,
                 bio: "",
                 linkk: "",
                 gender: ["prefer not say", ""],
