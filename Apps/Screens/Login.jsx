@@ -62,7 +62,8 @@ import { loginWithGoogle, onLogin } from "../../dist/authservices/auth";
 
     const LoginWithGoogle = async()=>{
       try {
-        await loginWithGoogle();
+       const user =  await loginWithGoogle();
+       console.log(user)
       } catch (error) {
         console.log(error)
       }
