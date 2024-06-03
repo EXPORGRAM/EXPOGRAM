@@ -10,7 +10,7 @@ export default function OthersPost({ image, name}) {
       <LinearGradient
         start={[0.9, 0.45]}
         end={[0.07, 1.03]}
-        colors={["#ff00ff", "#ff4400", "#ffff00"]}
+        colors={["yellow", "green", "blue"]}
         style={styles.unseenRainbowBorder}
       >
             <Image source={image} style={styles.imageWithStory} />

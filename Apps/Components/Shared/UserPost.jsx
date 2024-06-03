@@ -3,15 +3,20 @@ import React from 'react'
 import { Image } from 'react-native'
 import { Entypo } from "@expo/vector-icons";
 
-export default function UserPost() {
+export default function UserPost({image}) {
   return (
     <View className="pr-2">
           <View>
-            <Image
-              source={require("../../assets/images/team-1.jpg")}
-              style={styles.image}
-              className=""
-            />
+            {image?<Image
+            source={{uri: image}}
+            style={styles.image}
+            className=""
+          />
+             : <Image
+             source={require('../../../assets/images/profile_thumbnail.png')}
+             style={styles.image}
+             className=""
+           />}
           </View>
           <TouchableOpacity style={styles.addBtn}>
             <Entypo name="plus" size={18} color="#000" />
