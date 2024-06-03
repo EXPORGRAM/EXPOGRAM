@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.onLogout = exports.onLogin = exports.loginWithGoogle = exports.contiueWithGoogle = exports.onRegister = void 0;
 const firebase_1 = require("../firebaseconfig/firebase");
 const database_1 = require("../database/database");
+const firebase_2 = require("../firebaseconfig/firebase");
 const auth_1 = require("firebase/auth");
 const onRegister = (email, username, password, country, profile_picture) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
@@ -61,13 +62,16 @@ exports.contiueWithGoogle = contiueWithGoogle;
 const loginWithGoogle = () => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const auth = (0, auth_1.getAuth)();
-            const provider = new auth_1.GoogleAuthProvider();
-            const result = yield (0, auth_1.signInWithPopup)(auth, provider);
-            const credential = auth_1.GoogleAuthProvider.credentialFromResult(result);
-            const token = credential === null || credential === void 0 ? void 0 : credential.accessToken;
-            const user = result.user;
-            resolve(user);
+            //const auth = getAuth()
+            const provider = new firebase_2.GoogleAuthProvider();
+            yield (0, auth_1.signInWithRedirect)(firebase_2.auth, provider);
+            const result = yield (0, firebase_2.getRedirectResult)(firebase_2.auth);
+            //const credential = GoogleAuthProvider.credentialFromResult(result)
+            // const token = credential?.accessToken
+            if (result) {
+                const user = result.user;
+                resolve(user);
+            }
         }
         catch (error) {
             reject(error);

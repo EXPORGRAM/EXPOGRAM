@@ -2,6 +2,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";	
+import { getAuth, signInWithPopup, GoogleAuthProvider, getRedirectResult } from "firebase/auth";
 //import { getAnalytics } from "@firebase/analytics";
 //import exp from "constants";
 const firebaseConfig = {
@@ -15,13 +16,12 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 //!firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
-firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 //const analytics = getAnalytics(app);
 
 const db = firebase.firestore();
 const storage = firebase.storage()
-
-
-export { firebase, db, storage };
+const auth = getAuth(app)
+export { firebase, db, storage, auth, signInWithPopup, GoogleAuthProvider, getRedirectResult };
 
 // Path: src/api/server.ts 
