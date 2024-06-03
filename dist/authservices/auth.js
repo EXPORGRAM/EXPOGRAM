@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.onLogout = exports.onLogin = exports.loginWithGoogle = exports.contiueWithGoogle = exports.onRegister = void 0;
 const firebase_1 = require("../firebaseconfig/firebase");
 const database_1 = require("../database/database");
+const auth_1 = require("firebase/auth");
 const onRegister = (email, username, password, country, profile_picture) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         var _a;
@@ -44,12 +45,27 @@ const contiueWithGoogle = () => {
     }));
 };
 exports.contiueWithGoogle = contiueWithGoogle;
+// export const loginWithGoogle = ():Promise<boolean | any> =>{
+//     return new Promise(async (resolve, reject): Promise<void> =>{
+//         try {
+//             const provider = new firebase.auth.GoogleAuthProvider();
+//             const result = await firebase.auth().signInWithPopup(provider)
+//             //const token = result.credential?.accessToken
+//             const user = result.user
+//             resolve(user)
+//         }catch(error){
+//             reject(error)
+//         }
+//     })
+// }
 const loginWithGoogle = () => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const provider = new firebase_1.firebase.auth.GoogleAuthProvider();
-            const result = yield firebase_1.firebase.auth().signInWithPopup(provider);
-            //const token = result.credential?.accessToken
+            const auth = (0, auth_1.getAuth)();
+            const provider = new auth_1.GoogleAuthProvider();
+            const result = yield (0, auth_1.signInWithPopup)(auth, provider);
+            const credential = auth_1.GoogleAuthProvider.credentialFromResult(result);
+            const token = credential === null || credential === void 0 ? void 0 : credential.accessToken;
             const user = result.user;
             resolve(user);
         }
