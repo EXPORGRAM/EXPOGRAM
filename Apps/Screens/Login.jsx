@@ -17,7 +17,7 @@ import {
   import MessageModal from "../Components/Shared/MessageModal";
 import { Image } from "react-native";
 import { Divider } from "react-native-elements";
-import { onLogin } from "../../dist/authservices/auth";
+import { loginWithGoogle, onLogin } from "../../dist/authservices/auth";
   
   const Login = ({ navigation }) => {
     const [obsecureText, setObsecureText] = useState(true);
@@ -59,6 +59,14 @@ import { onLogin } from "../../dist/authservices/auth";
         setLoading(false);
     } 
     };
+
+    const LoginWithGoogle = async()=>{
+      try {
+        await loginWithGoogle();
+      } catch (error) {
+        console.log(error)
+      }
+    }
   
     return (
       <View style={styles.container}>
@@ -177,7 +185,7 @@ import { onLogin } from "../../dist/authservices/auth";
         <View className="border-t my-1 border-gray-400"></View>
         </View>
        </View>
-       <TouchableOpacity className="flex flex-row gap-3 mx-5 items-center justify-center border border-gray-400 p-4 pt-[4px] rounded-xl">
+       <TouchableOpacity onPress={LoginWithGoogle} className="flex flex-row gap-3 mx-5 items-center justify-center border border-gray-400 p-4 pt-[4px] rounded-xl">
         <Image source={require('../../assets/images/google.png')} className="w-[30px] h-[30px]" />
         <Text className="text-center text-[18px] text-white font-bold">Continue with Google</Text>
        </TouchableOpacity>
