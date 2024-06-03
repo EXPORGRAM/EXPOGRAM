@@ -66,8 +66,8 @@ export const onLogout = (): Promise<boolean | any> => {
     })
 }
 
-async function test(){
-   const withgoogle = await loginWithGoogle()
-   console.log(withgoogle)
-}
-test()
+// async function test(){
+//    const withgoogle = await loginWithGoogle()
+//    console.log(withgoogle)
+// }
+// test()

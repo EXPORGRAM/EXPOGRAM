@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.onLogout = exports.onLogin = exports.contiueWithGoogle = exports.onRegister = void 0;
+exports.onLogout = exports.onLogin = exports.loginWithGoogle = exports.contiueWithGoogle = exports.onRegister = void 0;
 const firebase_1 = require("../firebaseconfig/firebase");
 const database_1 = require("../database/database");
 const onRegister = (email, username, password, country, profile_picture) => {
@@ -44,6 +44,21 @@ const contiueWithGoogle = () => {
     }));
 };
 exports.contiueWithGoogle = contiueWithGoogle;
+const loginWithGoogle = () => {
+    return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const provider = new firebase_1.firebase.auth.GoogleAuthProvider();
+            const result = yield firebase_1.firebase.auth().signInWithPopup(provider);
+            //const token = result.credential?.accessToken
+            const user = result.user;
+            resolve(user);
+        }
+        catch (error) {
+            reject(error);
+        }
+    }));
+};
+exports.loginWithGoogle = loginWithGoogle;
 // Function to log in to an existing user account
 const onLogin = (email, password) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
@@ -70,10 +85,8 @@ const onLogout = () => {
     }));
 };
 exports.onLogout = onLogout;
-function test() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const withgoogle = yield (0, exports.contiueWithGoogle)();
-        console.log(withgoogle);
-    });
-}
-test();
+// async function test(){
+//    const withgoogle = await loginWithGoogle()
+//    console.log(withgoogle)
+// }
+// test()
