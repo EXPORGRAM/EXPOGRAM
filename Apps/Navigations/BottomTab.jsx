@@ -14,6 +14,7 @@ import {
   Octicons,
   FontAwesome,
 } from "@expo/vector-icons";
+import { useUserContext } from "../../Context/UserContext";
 
 const Tab = createBottomTabNavigator();
 
@@ -36,6 +37,8 @@ const screenOptions = {
 };
 
 const BottomTabs = ({ navigation }) => {
+  const { currentUser } = useUserContext();
+  console.log(currentUser)
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
@@ -106,10 +109,10 @@ const BottomTabs = ({ navigation }) => {
         options={{
           tabBarIcon: ({focused}) => {
             return (
-                <Image
-                source={require("../../assets/images/team-1.jpg")}
+                currentUser.profile_picture?<Image
+                source={{uri: currentUser.profile_picture}}
                 className="w-[28px] h-[28px] rounded-full " style={{borderWidth: focused? 2:0, borderColor: '#fff'}}
-              />
+              />:<Image source={require('../../assets/images/profile_thumbnail.png')} className="w-[28px] h-[28px] rounded-full " />
             )
           },
         }}

@@ -7,16 +7,17 @@ import {
     Keyboard,
     platform,
     Platform,
+    KeyboardAvoidingView,
+    ActivityIndicator,
   } from "react-native";
   import React, { useEffect, useState } from "react";
   import { Ionicons, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
   import { Formik } from "formik";
   import * as Yup from "yup";
   import MessageModal from "../Components/Shared/MessageModal";
-  import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { Image } from "react-native";
 import { Divider } from "react-native-elements";
-import { Hr } from '../Components/Shared/Hr'
+import { onLogin } from "../../dist/authservices/auth";
   
   const Login = ({ navigation }) => {
     const [obsecureText, setObsecureText] = useState(true);
@@ -25,6 +26,7 @@ import { Hr } from '../Components/Shared/Hr'
     const [passwordToValidate, SetPasswordToValidate] = useState(false);
     const [messageModalVisible, setMessageModalVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [loading, setLoading] = useState(null);
   
     const handleDataError = (message) => {
       setErrorMessage(message);
@@ -43,9 +45,19 @@ import { Hr } from '../Components/Shared/Hr'
         .min(6, "Your password has to have at least 8 characters"),
     });
   
-    const onLogin = async (email, password) => {
+    const onlogin = async (email, password) => {
       Keyboard.dismiss();
       console.log(email,password)
+      try {
+        setLoading(true)
+        const login = await onLogin(email, password)
+        setLoading(false)
+        console.log(login)
+      } catch (error) {
+        handleDataError('Invalid email or password')
+      } finally {
+        setLoading(false);
+    } 
     };
   
     return (
@@ -57,7 +69,7 @@ import { Hr } from '../Components/Shared/Hr'
         <Formik
           initialValues={{ email: "", password: "" }}
           onSubmit={(values) => {
-            onLogin(values.email, values.password);
+            onlogin(values.email, values.password);
           }}
           validationSchema={LoginFormSchema}
           validateOnMount={true}
@@ -150,7 +162,7 @@ import { Hr } from '../Components/Shared/Hr'
               </View>
               <TouchableOpacity onPress={handleSubmit} disabled={!isValid}>
                 <View style={styles.btnContainer(isValid)}>
-                  <Text style={styles.btnText}>Log in</Text>
+                  <Text style={styles.btnText}>{loading?<ActivityIndicator color={'#fff'} size={'small'} />:'Log in'}</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -177,7 +189,7 @@ import { Hr } from '../Components/Shared/Hr'
           height={70}
           icon="wrong"
         />
-        <View className=''>
+        <View className='pb-4'>
       <Divider width={0.5}/>
       <View style={styles.signUpContainer}>
         <Text style={styles.signUpText}>Don't have an account? </Text>
@@ -247,6 +259,8 @@ import { Hr } from '../Components/Shared/Hr'
       color: "#fff",
       fontSize: 16,
       fontWeight: "800",
+      alignItems: 'center',
+      justifyContent:'center'
     },
     modalContainer: {
       marginTop: 14,

@@ -31,7 +31,7 @@ export const USERS = [
 
 export const POST =[
     {
-        imageUrl: require('../assets/images/img4.jpg'),
+        imageUrl: require('../assets/images/drizzle.jpg'),
         user: USERS[0].user,
         likes: 1232,
         caption: 'Train ride to Mogwarts Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam delectus accusamus corporis dolores placeat blanditiis perspiciatis perferendis, porro incidunt numquam',
@@ -53,7 +53,7 @@ export const POST =[
         ]
     },
     {
-        imageUrl: require('../assets/images/img2.jpg'),
+        imageUrl: require('../assets/images/clouds1.jpg'),
         user: USERS[1].user,
         likes: 7664,
         caption: 'Once upon a time, the End sdfghjk lkjh hjkrtyu klkjtrtyui klrer tyukjt rtyukjtrty htrerthghty  kjy  ryr',
@@ -67,7 +67,7 @@ export const POST =[
         ]
     },
     {
-        imageUrl: require('../assets/images/img3.jpg'),
+        imageUrl: require('../assets/images/clear.jpg'),
         user: USERS[2].user,
         likes: 1232,
         caption: 'Train ride to Mogwarts',
@@ -85,7 +85,7 @@ export const POST =[
         ]
     },
     {
-        imageUrl: require('../assets/images/img2.jpeg'),
+        imageUrl: require('../assets/images/snow.jpg'),
         user: USERS[3].user,
         likes: 1232,
         caption: 'Train ride to Mogwarts',

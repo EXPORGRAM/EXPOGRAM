@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@expo/vector-icons": "^14.0.2",
     "@gorhom/bottom-sheet": "^4.6.3",
     "@react-native-community/netinfo": "^11.3.2",
     "@react-native-masked-view/masked-view": "^0.2.9",
@@ -10,6 +11,7 @@
     "@react-navigation/stack": "^6.3.29",
     "expo": "^51.0.0",
     "expo-av": "^14.0.5",
+    "expo-blur": "^13.0.2",
     "expo-camera": "^15.0.10",
     "expo-clipboard": "^6.0.3",
     "expo-image-manipulator": "^12.0.5",
@@ -22,6 +24,7 @@
     "formik": "^2.4.6",
     "nativewind": "^2.0.11",
     "react": "18.2.0",
+    "react-content-loader": "^7.0.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.1",
     "react-native-elements": "^3.4.3",
@@ -36,13 +39,15 @@
     "react-native-screens": "^3.31.1",
     "react-native-skeleton-placeholder": "^5.2.4",
     "react-native-tab-view": "^3.5.2",
+    "react-native-url-polyfill": "^2.0.0",
+    "react-native-vector-icons": "^10.1.0",
     "react-native-web": "~0.19.6",
     "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "tailwindcss": "^3.3.2",
-    "typescript": "^5.4.5"
+    "typescript": "~5.3.3"
   },
   "scripts": {
     "start": "expo start",
