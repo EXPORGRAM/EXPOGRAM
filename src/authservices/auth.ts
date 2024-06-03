@@ -1,6 +1,7 @@
 import { firebase } from "../firebaseconfig/firebase";  
 import { storeUserDetails } from "../database/database";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth, signInWithPopup, GoogleAuthProvider, getRedirectResult } from "../firebaseconfig/firebase";
+import { signInWithRedirect } from "firebase/auth";
 
 export const onRegister = (email: string,username: string, password: string, country: string, profile_picture: string): Promise<boolean | any> => {
     return new Promise(async (resolve, reject): Promise<void>=> {  
@@ -44,16 +45,18 @@ export const contiueWithGoogle = (): Promise<boolean | any> => {
 //     })
 // }
 export const loginWithGoogle = ():Promise<any> => {
-    return new Promise( async (resolve, reject) => {
+    return new Promise( async (resolve, reject):Promise<void> => {
         try {
-            const auth = getAuth()
+            //const auth = getAuth()
             const provider = new GoogleAuthProvider()
-            const result = await signInWithPopup(auth, provider)
+            await signInWithRedirect(auth, provider)
+            const result = await getRedirectResult(auth)
             //const credential = GoogleAuthProvider.credentialFromResult(result)
            // const token = credential?.accessToken
-            const user = result.user 
-            resolve(user)
-
+           if(result){
+                const user = result.user
+                resolve(user)
+           }
         } catch (error) {
             reject(error)
         }
