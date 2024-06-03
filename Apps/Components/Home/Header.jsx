@@ -1,6 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
-import {FontAwesome, MaterialIcons, FontAwesome5 } from '@expo/vector-icons'
+import { FontAwesome,  MaterialIcons, FontAwesome5 } from '@expo/vector-icons'
+// import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 export default function Header() {
   return (

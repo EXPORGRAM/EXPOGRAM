@@ -7,6 +7,7 @@ import {
     Keyboard,
     platform,
     Platform,
+    ActivityIndicator,
   } from "react-native";
   import React, { useEffect, useState } from "react";
   import { Ionicons, MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
@@ -14,13 +15,22 @@ import {
 import { Image } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import * as ImagePicker from 'expo-image-picker';
+import { onRegister } from "../../dist/authservices/auth";
+import useUploadPicture from "../../Hooks/useUploadPicture";
+import MessageModal from "../Components/Shared/MessageModal";
+import useResizePictures from "../../Hooks/useResizePictures";
   
   const ProfilePic = ({ navigation }) => {
     const {params} = useRoute()
     const [image, setImage] = useState('');
+    const [loading, setLoading] = useState(null);
+    const [messageModalVisible, setMessageModalVisible] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const { resizeProfilePicture } = useResizePictures();
+
+    const {uploadPicture} = useUploadPicture()
 
     const pickImage = async () => {
-        // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
           allowsEditing: true,
@@ -28,17 +38,40 @@ import * as ImagePicker from 'expo-image-picker';
           quality: 1,
         });
     
-        // console.log(result);
-    
         if (!result.canceled) {
           setImage(result.assets[0].uri);
         }
       };
   
     const onSignup = async (val) => {
-     val.image = image
-      console.log(val)
+        setLoading(true)
+
+        if(image != ''){
+          const resizedImage = await resizeProfilePicture(image);
+        val.image = await uploadPicture(resizedImage.uri, 'ProfilePicture', params.username)
+      }
+
+        try {
+          const register = await onRegister(params.email, params.username, params.password, params.country, val.image)
+          setLoading(false)
+          console.log(register)
+        } catch (error) {
+          console.log(error)
+          handleDataError('Email is already taken')
+        } finally {
+          setLoading(false);
+      } 
+
     };
+
+    const handleDataError = (message) => {
+      setErrorMessage(message);
+      setMessageModalVisible(true);
+      setTimeout(() => {
+        setMessageModalVisible(false);
+      }, 3500);
+    };
+
   
     return (
       <View style={styles.container}>
@@ -57,7 +90,7 @@ import * as ImagePicker from 'expo-image-picker';
                 
               {image? 
               <View className='w-[200px] h-[200px] items-center justify-center rounded-full border-4 border-white overflow-hidden'>
-                  <Image source={{uri:image}} className='w-[200px] h-[200px]' resizeMode='contain' />
+                  <Image source={{uri:image}} className='w-[200px] h-[200px] border-4 border-white rounded-full' resizeMode='contain' />
             </View>
               :<View className='w-[200px] h-[200px] items-center justify-center rounded-full border-4 border-white'>
                 <Ionicons name="camera-outline" size={100} color={'white'} />
@@ -76,12 +109,18 @@ import * as ImagePicker from 'expo-image-picker';
               </TouchableOpacity>
 
               <TouchableOpacity className="mx-5 items-center justify-center mt-4 p-4" onPress={handleSubmit}>
-        <Text className="text-center text-[16px] text-[#07f] font-bold">{image? 'Sign Up': 'Skip to sign up'}</Text>
+        <Text className="text-center text-[16px] text-[#07f] font-bold">{image? 'Sign Up':loading? <ActivityIndicator size={'small'} color={'#07f'} />: 'Skip to sign up'}</Text>
        </TouchableOpacity>
             </View>
           )}
         </Formik>
         </View>
+        <MessageModal
+          messageModalVisible={messageModalVisible}
+          message={errorMessage}
+          height={70}
+          icon="wrong"
+        />
 
       </View>
     );

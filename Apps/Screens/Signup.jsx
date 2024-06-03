@@ -16,6 +16,7 @@ import {
 import { Image } from "react-native";
 import { getLocales } from "expo-localization";
 import { Divider } from "react-native-elements";
+import useIsEmail from '../../Utils/useIsEmail'
   
   const Signup = ({ navigation }) => {
     const [obsecureText, setObsecureText] = useState(true);
@@ -27,6 +28,8 @@ import { Divider } from "react-native-elements";
     const [messageModalVisible, setMessageModalVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [country, setCountry] = useState(null);
+
+    const {isEmail} = useIsEmail()
 
     useEffect(() => {
         const locales = getLocales();
@@ -57,9 +60,9 @@ import { Divider } from "react-native-elements";
   
     const onSignup = async (email,username, password) => {
       Keyboard.dismiss();
-      navigation.navigate('Profilepic', {
-        email,username,password
-      })
+      isEmail(email)?(navigation.navigate('Profilepic', {
+        email,username,password, country
+      })):handleDataError('Invalid email');
       console.log(email,username, password, country)
     };
   

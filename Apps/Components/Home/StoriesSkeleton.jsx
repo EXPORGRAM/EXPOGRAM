@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   image: {
-    width: 90,
-    height: 90,
+    width: 77,
+    height: 77,
     borderRadius: 100,
   },
   text: {
