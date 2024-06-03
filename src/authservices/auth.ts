@@ -28,6 +28,20 @@ export const contiueWithGoogle = (): Promise<boolean | any> => {
         }
     })
 }
+
+export const loginWithGoogle = ():Promise<boolean | any> =>{
+    return new Promise(async (resolve, reject): Promise<void> =>{
+        try {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            const result = await firebase.auth().signInWithPopup(provider)
+            //const token = result.credential?.accessToken
+            const user = result.user
+            resolve(user)
+        }catch(error){
+            reject(error)
+        }
+    })
+}
 // Function to log in to an existing user account
 export const onLogin = (email: string, password: string): Promise<boolean | any> => {
     return new Promise(async (resolve, reject): Promise<void> => {
@@ -52,8 +66,8 @@ export const onLogout = (): Promise<boolean | any> => {
     })
 }
 
-// async function test(){
-//    const withgoogle = await contiueWithGoogle()
-//    console.log(withgoogle)
-// }
-// test()
+async function test(){
+   const withgoogle = await loginWithGoogle()
+   console.log(withgoogle)
+}
+test()
