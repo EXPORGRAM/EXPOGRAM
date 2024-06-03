@@ -17,17 +17,17 @@ export const onRegister = (email: string,username: string, password: string, cou
     })
 }
 // continue with google account
-// export const contiueWithGoogle = (): Promise<boolean | any> => {
-//     return new Promise(async (resolve, reject): Promise<void> => {
-//         try {
-//             const provider = new firebase.auth.GoogleAuthProvider();
-//             await firebase.auth().signInWithPopup(provider);
-//             resolve(true);
-//         } catch (error) {
-//             reject(error);
-//         }
-//     })
-// }
+export const contiueWithGoogle = (): Promise<boolean | any> => {
+    return new Promise(async (resolve, reject): Promise<void> => {
+        try {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            await firebase.auth().signInWithPopup(provider);
+            resolve(true);
+        } catch (error) {
+            reject(error);
+        }
+    })
+}
 // Function to log in to an existing user account
 export const onLogin = (email: string, password: string): Promise<boolean | any> => {
     return new Promise(async (resolve, reject): Promise<void> => {
@@ -51,3 +51,9 @@ export const onLogout = (): Promise<boolean | any> => {
         }
     })
 }
+
+// async function test(){
+//    const withgoogle = await contiueWithGoogle()
+//    console.log(withgoogle)
+// }
+// test()

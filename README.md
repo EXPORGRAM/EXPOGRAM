@@ -1,4 +1,4 @@
-# My Universal React Project
+# EXPOGRAM SOCIAL MEDIA APP
 
 <p>
   <!-- iOS -->
