@@ -1,5 +1,6 @@
 import { firebase } from "../firebaseconfig/firebase";  
 import { storeUserDetails } from "../database/database";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 export const onRegister = (email: string,username: string, password: string, country: string, profile_picture: string): Promise<boolean | any> => {
     return new Promise(async (resolve, reject): Promise<void>=> {  
@@ -29,15 +30,31 @@ export const contiueWithGoogle = (): Promise<boolean | any> => {
     })
 }
 
-export const loginWithGoogle = ():Promise<boolean | any> =>{
-    return new Promise(async (resolve, reject): Promise<void> =>{
+// export const loginWithGoogle = ():Promise<boolean | any> =>{
+//     return new Promise(async (resolve, reject): Promise<void> =>{
+//         try {
+//             const provider = new firebase.auth.GoogleAuthProvider();
+//             const result = await firebase.auth().signInWithPopup(provider)
+//             //const token = result.credential?.accessToken
+//             const user = result.user
+//             resolve(user)
+//         }catch(error){
+//             reject(error)
+//         }
+//     })
+// }
+export const loginWithGoogle = ():Promise<any> => {
+    return new Promise( async (resolve, reject) => {
         try {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            const result = await firebase.auth().signInWithPopup(provider)
-            //const token = result.credential?.accessToken
-            const user = result.user
+            const auth = getAuth()
+            const provider = new GoogleAuthProvider()
+            const result = await signInWithPopup(auth, provider)
+            //const credential = GoogleAuthProvider.credentialFromResult(result)
+           // const token = credential?.accessToken
+            const user = result.user 
             resolve(user)
-        }catch(error){
+
+        } catch (error) {
             reject(error)
         }
     })
