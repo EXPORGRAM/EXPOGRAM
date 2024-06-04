@@ -27,7 +27,7 @@ export const contiueWithGoogle = (): Promise<boolean | any> => {
             resolve(true);
         } catch (error) {
             reject(error);
-        }
+        } 
     })
 }
 
