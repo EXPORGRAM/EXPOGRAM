@@ -15,7 +15,7 @@ type post = {
     comments: string[]
 }
 
-export const fetchAllPost = (): Promise<post[]> =>{
+export const fetchAllPost = (limits: number): Promise<post[]> =>{
     return new Promise(async (resolve, reject) =>{
         try {
             const usercollectionref = collection(db,"users")
@@ -24,7 +24,7 @@ export const fetchAllPost = (): Promise<post[]> =>{
             for(const userDoc of allusersSnapshot.docs){
                 const email = userDoc.id
                 const postsCollectionRef = collection(db, `users/${email}/Post`)
-                const postsQuery = query(postsCollectionRef, orderBy('created_at', 'desc'), limit(2))
+                const postsQuery = query(postsCollectionRef, orderBy('created_at', 'desc'), limit(limits))
                 const allpostSnapshot = await getDocs(postsQuery)
                 allpostSnapshot.forEach((postDoc) =>{
                     const postData = postDoc.data() as post; // Explicitly type the data as 'post'
