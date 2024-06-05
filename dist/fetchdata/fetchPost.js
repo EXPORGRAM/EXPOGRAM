@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchAllPost = void 0;
+exports.fetchPost = exports.fetchAllPost = void 0;
 const firestore_1 = require("firebase/firestore");
 const firebase_1 = require("../firebaseconfig/firebase");
 const fetchAllPost = (limits) => {
@@ -36,6 +36,11 @@ const fetchAllPost = (limits) => {
     }));
 };
 exports.fetchAllPost = fetchAllPost;
+const fetchPost = () => {
+    return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
+    }));
+};
+exports.fetchPost = fetchPost;
 // async function test() {
 //     await fetchAllPost().then((succ) =>{
 //         console.log(succ)
