@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getRedirectResult = exports.GoogleAuthProvider = exports.signInWithPopup = exports.auth = exports.storage = exports.db = exports.firebase = exports.orderBy = exports.query = exports.getDocs = exports.collection = exports.getFirestore = void 0;
+exports.setDoc = exports.doc = exports.limit = exports.getRedirectResult = exports.GoogleAuthProvider = exports.signInWithPopup = exports.auth = exports.storage = exports.db = exports.firebase = exports.orderBy = exports.query = exports.getDocs = exports.collection = exports.getFirestore = void 0;
 const app_1 = __importDefault(require("firebase/compat/app"));
 exports.firebase = app_1.default;
 require("firebase/compat/auth");
@@ -19,6 +19,9 @@ Object.defineProperty(exports, "collection", { enumerable: true, get: function (
 Object.defineProperty(exports, "getDocs", { enumerable: true, get: function () { return firestore_1.getDocs; } });
 Object.defineProperty(exports, "query", { enumerable: true, get: function () { return firestore_1.query; } });
 Object.defineProperty(exports, "orderBy", { enumerable: true, get: function () { return firestore_1.orderBy; } });
+Object.defineProperty(exports, "limit", { enumerable: true, get: function () { return firestore_1.limit; } });
+Object.defineProperty(exports, "doc", { enumerable: true, get: function () { return firestore_1.doc; } });
+Object.defineProperty(exports, "setDoc", { enumerable: true, get: function () { return firestore_1.setDoc; } });
 //import { getAnalytics } from "@firebase/analytics";
 //import exp from "constants";
 const firebaseConfig = {
@@ -28,7 +31,7 @@ const firebaseConfig = {
     storageBucket: "expogram-ce49a.appspot.com",
     messagingSenderId: "940006901580",
     appId: "1:940006901580:web:42132f3d0ec040ff33b1e9",
-    measurementId: "G-J6Q7XBP3JF"
+    measurementId: "G-J6Q7XBP3JF",
 };
 // Initialize Firebase
 //!firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
@@ -40,4 +43,4 @@ const storage = app_1.default.storage();
 exports.storage = storage;
 const auth = (0, auth_1.getAuth)(app);
 exports.auth = auth;
-// Path: src/api/server.ts 
+// Path: src/api/server.ts
