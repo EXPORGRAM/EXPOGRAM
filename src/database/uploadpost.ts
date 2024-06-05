@@ -1,6 +1,6 @@
 import { db,firebase } from "../firebaseconfig/firebase"
 
-export const uploadPost = ( username: string, user_id: string, email: string, profile_picture: string, imageUrl: string[] ,caption: string, Hastag: string[] ): Promise<any> =>{
+export const uploadPost = ( username: string, user_id: string, email: string, profile_picture: string, imageUrl: string[] ,caption: string, Hastag: string[] ): Promise<boolean | any> =>{
     return new Promise(async (resolve,reject): Promise<void> =>{
        try {
         const newPost = {
@@ -21,8 +21,7 @@ export const uploadPost = ( username: string, user_id: string, email: string, pr
         .collection("users")
         .doc(email)
         .collection("Post")
-        .doc(email)
-        .set(newPost)
+        .add(newPost)
         resolve(true)
        } catch (error) {
         reject(error)

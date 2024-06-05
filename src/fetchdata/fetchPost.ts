@@ -38,6 +38,12 @@ export const fetchAllPost = (limits: number): Promise<post[]> =>{
     })
 }
 
+export const fetchPost = () =>{
+    return new Promise(async (resolve,reject) =>{
+
+    })
+}
+
 // async function test() {
 //     await fetchAllPost().then((succ) =>{
 //         console.log(succ)

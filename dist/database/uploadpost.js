@@ -32,8 +32,7 @@ const uploadPost = (username, user_id, email, profile_picture, imageUrl, caption
                 .collection("users")
                 .doc(email)
                 .collection("Post")
-                .doc(email)
-                .set(newPost);
+                .add(newPost);
             resolve(true);
         }
         catch (error) {
