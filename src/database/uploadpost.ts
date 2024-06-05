@@ -4,6 +4,7 @@ export const uploadPost = ( username: string, user_id: string, email: string, pr
     return new Promise(async (resolve,reject): Promise<void> =>{
        try {
         const newPost = {
+            //post_id: uuid
             username: username,
             user_id: user_id,
             email: email,
@@ -20,10 +21,21 @@ export const uploadPost = ( username: string, user_id: string, email: string, pr
         .collection("users")
         .doc(email)
         .collection("Post")
-        .add(newPost)
+        .doc(email)
+        .set(newPost)
         resolve(true)
        } catch (error) {
         reject(error)
        }
     })
 }
+
+// async function test(){
+//     await uploadPost('caleb','123', 'calebazumah9@gmail.com','', ['image1','image2'], 'caption', ['hashtag1','hashtag2'])
+//     .then((succ) =>{
+//         console.log(succ)
+//     }).catch((failure) =>{
+//         console.log(failure)
+//     })
+// }
+// test()

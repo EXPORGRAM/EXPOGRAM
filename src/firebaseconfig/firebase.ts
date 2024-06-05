@@ -8,6 +8,7 @@ import {
   GoogleAuthProvider, 
   getRedirectResult,
   initializeAuth } from "firebase/auth";
+  import { getFirestore, collection, getDocs, query, orderBy } from "firebase/firestore"
 //import { getAnalytics } from "@firebase/analytics";
 //import exp from "constants";
 const firebaseConfig = {
@@ -27,6 +28,7 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const storage = firebase.storage()
 const auth = getAuth(app)
+export { getFirestore, collection, getDocs, query, orderBy }
 export { firebase, db, storage, auth, signInWithPopup, GoogleAuthProvider, getRedirectResult };
 
 // Path: src/api/server.ts 
