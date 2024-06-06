@@ -15,7 +15,6 @@ const uploadPost = (username, user_id, email, profile_picture, imageUrl, caption
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const newPost = {
-                //post_id: uuid
                 username: username,
                 user_id: user_id,
                 email: email,

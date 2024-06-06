@@ -17,7 +17,7 @@ import {
   orderBy,
   limit,
   doc,
-  setDoc,
+  setDoc
 } from "firebase/firestore";
 
 //import { getAnalytics } from "@firebase/analytics";
