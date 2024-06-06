@@ -9,8 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchPost = exports.fetchAllPost = void 0;
-const firestore_1 = require("firebase/firestore");
+exports.fetchUserPost = exports.fetchPost = exports.fetchAllPost = void 0;
 const firebase_1 = require("../firebaseconfig/firebase");
 const fetchAllPost = (limits) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
@@ -21,11 +20,11 @@ const fetchAllPost = (limits) => {
             for (const userDoc of allusersSnapshot.docs) {
                 const email = userDoc.id;
                 const postsCollectionRef = (0, firebase_1.collection)(firebase_1.db, `users/${email}/Post`);
-                const postsQuery = (0, firebase_1.query)(postsCollectionRef, (0, firebase_1.orderBy)('created_at', 'desc'), (0, firestore_1.limit)(limits));
+                const postsQuery = (0, firebase_1.query)(postsCollectionRef, (0, firebase_1.orderBy)('created_at', 'desc'), (0, firebase_1.limit)(limits));
                 const allpostSnapshot = yield (0, firebase_1.getDocs)(postsQuery);
                 allpostSnapshot.forEach((postDoc) => {
-                    const postData = postDoc.data(); // Explicitly type the data as 'post'
-                    allPost.push(Object.assign({}, postData));
+                    const postData = Object.assign({ id: postDoc.id }, postDoc.data());
+                    allPost.push(postData);
                 });
             }
             resolve(allPost);
@@ -36,11 +35,50 @@ const fetchAllPost = (limits) => {
     }));
 };
 exports.fetchAllPost = fetchAllPost;
-const fetchPost = () => {
+const fetchPost = (email, post_id) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            firebase_1.db
+                .collection("users")
+                .doc(email)
+                .collection("Post")
+                .doc(post_id)
+                .onSnapshot((doc) => {
+                const postData = Object.assign({ id: post_id }, doc.data());
+                resolve(postData);
+            });
+        }
+        catch (error) {
+            reject(error);
+        }
     }));
 };
 exports.fetchPost = fetchPost;
+const fetchUserPost = (email, limits) => {
+    return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            firebase_1.db.
+                collection("users")
+                .doc(email)
+                .collection("Post")
+                .orderBy("created_at", "desc")
+                .limit(limits)
+                .onSnapshot((snapshot) => {
+                const data = snapshot.docs.map((doc) => (Object.assign({ id: doc.id }, doc.data())));
+                if (data.length <= 0) {
+                    reject("No post found");
+                }
+                else {
+                    resolve(data);
+                }
+            });
+        }
+        catch (error) {
+            reject(error);
+        }
+    }));
+};
+exports.fetchUserPost = fetchUserPost;
 // async function test() {
 //     await fetchAllPost().then((succ) =>{
 //         console.log(succ)
