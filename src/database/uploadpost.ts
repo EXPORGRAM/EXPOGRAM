@@ -4,7 +4,6 @@ export const uploadPost = ( username: string, user_id: string, email: string, pr
     return new Promise(async (resolve,reject): Promise<void> =>{
        try {
         const newPost = {
-            //post_id: uuid
             username: username,
             user_id: user_id,
             email: email,
@@ -18,13 +17,13 @@ export const uploadPost = ( username: string, user_id: string, email: string, pr
             comments: []
         }
         await db
-        .collection("users")
-        .doc(email)
-        .collection("Post")
-        .add(newPost)
+            .collection("users")
+            .doc(email)
+            .collection("Post")
+            .add(newPost)
         resolve(true)
        } catch (error) {
-        reject(error)
+        reject(error) 
        }
     })
 }

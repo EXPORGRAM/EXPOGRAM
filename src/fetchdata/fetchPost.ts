@@ -1,7 +1,7 @@
-import { limit } from "firebase/firestore"
-import { db, firebase, getFirestore, collection, getDocs, query, orderBy } from "../firebaseconfig/firebase"
+import { db, firebase, getFirestore, collection, getDocs, query, orderBy, limit } from "../firebaseconfig/firebase"
 
 type post = {
+    id: string,
     username: string,
     user_id: string,
     email: string,
@@ -15,8 +15,8 @@ type post = {
     comments: string[]
 }
 
-export const fetchAllPost = (limits: number): Promise<post[]> =>{
-    return new Promise(async (resolve, reject) =>{
+export const fetchAllPost = (limits: number): Promise<post[] | any> =>{
+    return new Promise(async (resolve, reject): Promise<void> =>{
         try {
             const usercollectionref = collection(db,"users")
             const allusersSnapshot = await getDocs(usercollectionref)
@@ -27,8 +27,8 @@ export const fetchAllPost = (limits: number): Promise<post[]> =>{
                 const postsQuery = query(postsCollectionRef, orderBy('created_at', 'desc'), limit(limits))
                 const allpostSnapshot = await getDocs(postsQuery)
                 allpostSnapshot.forEach((postDoc) =>{
-                    const postData = postDoc.data() as post; // Explicitly type the data as 'post'
-                    allPost.push({  ...postData });
+                    const postData = { id: postDoc.id, ...postDoc.data() }
+                    allPost.push(postData as post);
                 })
             } 
             resolve(allPost)
@@ -38,12 +38,47 @@ export const fetchAllPost = (limits: number): Promise<post[]> =>{
     })
 }
 
-export const fetchPost = () =>{
-    return new Promise(async (resolve,reject) =>{
-
+export const fetchPost = (email: string, post_id:string): Promise<post> => {
+    return new Promise(async (resolve,reject): Promise<void> =>{
+        try {
+            db
+            .collection("users")
+            .doc(email)
+            .collection("Post")
+            .doc(post_id)
+            .onSnapshot((doc) =>{
+                const postData = { id: post_id, ...doc.data() }
+                resolve(postData as post)    
+            })
+        } catch (error) {
+            reject(error)
+        }
     })
 }
 
+export const fetchUserPost = (email : string, limits: number): Promise<post[] | string | any> => {
+    return new Promise(async (resolve, reject):Promise<void> =>{
+        try {
+            db.
+               collection("users")
+               .doc(email)
+               .collection("Post")
+               .orderBy("created_at", "desc")
+               .limit(limits)
+               .onSnapshot((snapshot) => {
+                    const data = snapshot.docs.map((doc) => ( { id: doc.id, ...doc.data() }))
+                    if(data.length <= 0){
+                        reject("No post found")
+                    }else{
+                        resolve(data as post[])
+                    }
+               })
+
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
 // async function test() {
 //     await fetchAllPost().then((succ) =>{
 //         console.log(succ)
