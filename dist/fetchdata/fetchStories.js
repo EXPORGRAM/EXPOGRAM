@@ -30,3 +30,12 @@ const fetchstories = () => {
     }));
 };
 exports.fetchstories = fetchstories;
+// async function tes(){
+//     await fetchstories()
+//     .then((succ) =>{
+//         console.log(succ)
+//     }).catch((failure) =>{
+//         console.log(failure)
+//     })
+// }
+// tes()

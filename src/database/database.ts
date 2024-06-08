@@ -1,7 +1,7 @@
 import { db,firebase } from "../firebaseconfig/firebase";
 
-export const storeUserDetails = (uid: string, email: string, username: string, country: string, profile_picture: string) => {
-    return new Promise(async (resolve, reject) => {
+export const storeUserDetails = (uid: string, email: string, username: string, country: string, profile_picture: string): Promise<boolean | string> => {
+    return new Promise(async (resolve, reject): Promise<void> => {
         try {
             await db.collection("users")
             .doc(email)

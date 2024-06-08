@@ -18,7 +18,7 @@ export const uploadStory = (imageUrl: string,username: string,name: string,profi
             new_likes: [],
             seen_by_user: []
         }
-      db
+      await db
         .collection("users")
         .doc(user_email)
         .collection("stories")

@@ -34,7 +34,7 @@ const uploadComment = (post, currentUserEmail, currentUserUsername, currentUserP
                     comments: firebase_1.firebase.firestore.FieldValue.arrayUnion(newComment)
                 });
                 if (post.email !== currentUserEmail)
-                    (firebase_1.db
+                    (yield firebase_1.db
                         .collection("users")
                         .doc(post.email)
                         .update({

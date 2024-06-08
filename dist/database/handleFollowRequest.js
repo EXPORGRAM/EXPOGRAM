@@ -9,28 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadStory = void 0;
+exports.handleFollowRequest = void 0;
 const firebase_1 = require("../firebaseconfig/firebase");
-const uploadStory = (imageUrl, username, name, profile_picture, user_id, user_email) => {
+const handleFollowRequest = (currentUser, userEmail) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const newStory = {
-                imageUrl: imageUrl,
-                username: username,
-                name: name,
-                profile_picture: profile_picture,
-                user_id: user_id,
-                user_email: user_email,
-                created_at: firebase_1.firebase.firestore.FieldValue.serverTimestamp(),
-                likes_by_users: [],
-                new_likes: [],
-                seen_by_user: []
-            };
+            const batch = firebase_1.db.batch();
             yield firebase_1.db
-                .collection("users")
-                .doc(user_email)
-                .collection("stories")
-                .add(newStory);
+                .collection('users')
+                .doc(userEmail)
+                .update({
+                followersRequest: !currentUser.followingRequest.includes(userEmail)
+                    ? firebase_1.firebase.firestore.FieldValue.arrayUnion(currentUser.email)
+                    : firebase_1.firebase.firestore.FieldValue.arrayRemove(currentUser.email)
+            });
+            yield firebase_1.db
+                .collection('users')
+                .doc(currentUser.email)
+                .update({
+                followingRequest: !currentUser.followingRequest.includes(userEmail)
+                    ? firebase_1.firebase.firestore.FieldValue.arrayUnion(userEmail)
+                    : firebase_1.firebase.firestore.FieldValue.arrayRemove(userEmail)
+            });
+            yield batch.commit();
             resolve(true);
         }
         catch (error) {
@@ -38,4 +39,4 @@ const uploadStory = (imageUrl, username, name, profile_picture, user_id, user_em
         }
     }));
 };
-exports.uploadStory = uploadStory;
+exports.handleFollowRequest = handleFollowRequest;
