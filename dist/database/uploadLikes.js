@@ -15,7 +15,7 @@ const handlepostlikes = (post, currentUserEmail, currentUserUsername, currentUse
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         const currentLikesStatus = !post.likes_by_users.includes(currentUserEmail);
         try {
-            firebase_1.db
+            yield firebase_1.db
                 .collection("users")
                 .doc(post.email)
                 .collection("Post")
@@ -48,7 +48,7 @@ const handlestoryLikes = (story, currentUserEmail) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         const currentLikesStatus = !story.likes_by_users.includes(currentUserEmail);
         try {
-            firebase_1.db
+            yield firebase_1.db
                 .collection("users")
                 .doc(story.user_email)
                 .collection("stories")

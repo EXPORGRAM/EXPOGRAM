@@ -41,11 +41,11 @@ export const uploadComment = (post: post, currentUserEmail: string, currentUserU
                 })
 
                 if(post.email !== currentUserEmail)(
-                    db
-                    .collection("users")
-                    .doc(post.email)
-                    .update({
-                        event_notification: firebase.firestore.FieldValue.increment(1)
+                    await db
+                        .collection("users")
+                        .doc(post.email)
+                        .update({
+                            event_notification: firebase.firestore.FieldValue.increment(1)
                     })
                 )
                 resolve(true)

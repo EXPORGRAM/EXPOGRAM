@@ -1,7 +1,7 @@
 import { db, firebase } from "../firebaseconfig/firebase";
 
-export const fetchstories = () => {
-    return new Promise(async (resolve, reject) => {
+export const fetchstories = (): Promise<any> => {
+    return new Promise(async (resolve, reject): Promise<void> => {
         try {
             firebase
             .firestore()
@@ -17,3 +17,13 @@ export const fetchstories = () => {
         }
     })
 }
+
+// async function tes(){
+//     await fetchstories()
+//     .then((succ) =>{
+//         console.log(succ)
+//     }).catch((failure) =>{
+//         console.log(failure)
+//     })
+// }
+// tes()

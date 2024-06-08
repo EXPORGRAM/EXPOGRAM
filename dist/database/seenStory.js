@@ -15,7 +15,7 @@ const seenStory = (stories, user_email, currentStoryIndex) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             if (!stories[currentStoryIndex].seen_by_user.includes(user_email)) {
-                firebase_1.db
+                yield firebase_1.db
                     .collection("users")
                     .doc(stories[0].user_email)
                     .collection("stories")

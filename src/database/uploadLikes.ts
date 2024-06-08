@@ -19,7 +19,7 @@ export const handlepostlikes = (post: post, currentUserEmail: string,currentUser
     return new Promise(async (resolve,reject): Promise<void> => {
         const currentLikesStatus = !post.likes_by_users.includes(currentUserEmail)
         try {
-            db
+            await db
               .collection("users")
               .doc(post.email)
               .collection("Post")
@@ -66,7 +66,7 @@ export const handlestoryLikes = (story: story, currentUserEmail: string): Promis
     return new Promise(async (resolve, reject):Promise<void> =>{
         const currentLikesStatus = !story.likes_by_users.includes(currentUserEmail)
         try {
-            db
+            await db
               .collection("users")
               .doc(story.user_email)
               .collection("stories")

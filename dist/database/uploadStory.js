@@ -26,7 +26,7 @@ const uploadStory = (imageUrl, username, name, profile_picture, user_id, user_em
                 new_likes: [],
                 seen_by_user: []
             };
-            firebase_1.db
+            yield firebase_1.db
                 .collection("users")
                 .doc(user_email)
                 .collection("stories")
