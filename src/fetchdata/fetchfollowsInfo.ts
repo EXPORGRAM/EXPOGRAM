@@ -22,8 +22,8 @@ type user ={
     country: string
 }
 
-export const fetchFollowers = (user: user): Promise<any> => {
-    return new Promise(async (resolve, reject): Promise<void> =>{
+export const fetchFollowers = (user: user): Promise<object[] | string | any> => {
+    return new Promise((resolve, reject):void =>{
         try {
             if(user.followers.length <= 0){
                 resolve([])
@@ -45,8 +45,8 @@ export const fetchFollowers = (user: user): Promise<any> => {
     })
 }
 
-export const fetchfollowing = (user: user): Promise<any> =>{
-    return new Promise( async (resolve, reject): Promise<void> =>{
+export const fetchfollowing = (user: user): Promise<object[] | string | any> =>{
+    return new Promise( (resolve, reject): void =>{
         try {
             if(user.following.length <= 0){
                 resolve([])

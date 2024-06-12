@@ -11,7 +11,7 @@ type user ={
     followers: string[],
     following: string[],
     followersRequset: string[],
-    followingRequest: string[],
+    followingRequest: string[], 
     events_notification: string[],
     chat_notification: string[],
     saved_posts: string[],

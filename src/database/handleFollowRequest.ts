@@ -29,7 +29,7 @@ export const handleFollowRequest = (currentUser: user, userEmail:string): Promis
                 .collection('users')
                 .doc(userEmail)
                 .update({
-                    followersRequest: !currentUser.followingRequest.includes(userEmail)
+                    followersRequset: !currentUser.followingRequest.includes(userEmail)
                         ? firebase.firestore.FieldValue.arrayUnion(currentUser.email)
                         : firebase.firestore.FieldValue.arrayRemove(currentUser.email)
                 })

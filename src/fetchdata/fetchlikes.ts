@@ -2,7 +2,7 @@ import { db, firebase } from '../firebaseconfig/firebase'
 
 
 export const fetchLikes = (likesByEmail : string[]): Promise<any> => {
-    return new Promise(async (resolve,reject): Promise<void> => {
+    return new Promise((resolve,reject): void => {
         try {
             { likesByEmail }
             db.

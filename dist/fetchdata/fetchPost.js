@@ -36,7 +36,7 @@ const fetchAllPost = (limits) => {
 };
 exports.fetchAllPost = fetchAllPost;
 const fetchPost = (email, post_id) => {
-    return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
+    return new Promise((resolve, reject) => {
         try {
             firebase_1.db
                 .collection("users")
@@ -51,11 +51,11 @@ const fetchPost = (email, post_id) => {
         catch (error) {
             reject(error);
         }
-    }));
+    });
 };
 exports.fetchPost = fetchPost;
 const fetchUserPost = (email, limits) => {
-    return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
+    return new Promise((resolve, reject) => {
         try {
             firebase_1.db.
                 collection("users")
@@ -76,7 +76,7 @@ const fetchUserPost = (email, limits) => {
         catch (error) {
             reject(error);
         }
-    }));
+    });
 };
 exports.fetchUserPost = fetchUserPost;
 // async function test() {

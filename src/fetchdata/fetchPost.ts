@@ -39,7 +39,7 @@ export const fetchAllPost = (limits: number): Promise<post[] | any> =>{
 }
 
 export const fetchPost = (email: string, post_id:string): Promise<post> => {
-    return new Promise(async (resolve,reject): Promise<void> =>{
+    return new Promise((resolve,reject): void =>{
         try {
             db
             .collection("users")
@@ -57,7 +57,7 @@ export const fetchPost = (email: string, post_id:string): Promise<post> => {
 }
 
 export const fetchUserPost = (email : string, limits: number): Promise<post[] | string | any> => {
-    return new Promise(async (resolve, reject):Promise<void> =>{
+    return new Promise((resolve, reject): void =>{
         try {
             db.
                collection("users")
