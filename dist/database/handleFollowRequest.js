@@ -19,7 +19,7 @@ const handleFollowRequest = (currentUser, userEmail) => {
                 .collection('users')
                 .doc(userEmail)
                 .update({
-                followersRequest: !currentUser.followingRequest.includes(userEmail)
+                followersRequset: !currentUser.followingRequest.includes(userEmail)
                     ? firebase_1.firebase.firestore.FieldValue.arrayUnion(currentUser.email)
                     : firebase_1.firebase.firestore.FieldValue.arrayRemove(currentUser.email)
             });

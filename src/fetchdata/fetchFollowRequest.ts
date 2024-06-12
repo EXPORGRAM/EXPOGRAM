@@ -22,8 +22,8 @@ type user ={
     country: string
 }
 
-export const fecthRequest = (user: user ): Promise<any> => {
-    return new Promise(async (resolve, reject): Promise<void> => {
+export const fecthRequest = (user: user ): Promise<object[] | string | any> => {
+    return new Promise((resolve, reject): void => {
         try {
             if(user.followersRequset.length <= 0){
                 resolve([])

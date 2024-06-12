@@ -9,33 +9,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.uploadReel = void 0;
+exports.addUser = void 0;
 const firebase_1 = require("../firebaseconfig/firebase");
-const uploadReel = (username, user_id, email, profile_picture, videoUrl, caption) => {
+const addUser = (user, currentUserEmail) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const reel = {
-                username: username,
-                user_id: user_id,
-                email: email,
-                profile_picture: profile_picture,
-                videoUrl: videoUrl,
-                caption: caption,
-                created_at: firebase_1.firebase.firestore.FieldValue.serverTimestamp(),
-                likes_by_users: [],
-                new_likes: [],
-                comments: []
+            const newUser = {
+                email: user.email,
+                username: user.username,
+                name: user.username,
+                profile_picture: user.profile_picture,
+                status: 'seen'
             };
             yield firebase_1.db
                 .collection('users')
-                .doc(email)
-                .collection('reels')
-                .add(reel);
-            resolve(true);
+                .doc(currentUserEmail)
+                .collection('chat')
+                .doc(user.email)
+                .set(newUser);
         }
         catch (error) {
             reject(error);
         }
     }));
 };
-exports.uploadReel = uploadReel;
+exports.addUser = addUser;
