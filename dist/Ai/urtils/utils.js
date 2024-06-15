@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.imageToBlob = void 0;
+exports.imageToBase64 = void 0;
+const fs = require('fs');
 const imageToBlob = (imageUrl) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const response = yield fetch(imageUrl);
@@ -21,4 +22,15 @@ const imageToBlob = (imageUrl) => __awaiter(void 0, void 0, void 0, function* ()
     }
     return undefined;
 });
-exports.imageToBlob = imageToBlob;
+const imageToBase64 = (imageUrl) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        //const blob: Blob | undefined = await imageToBlob(imageUrl)
+        const reader = fs.readFileSync(imageUrl);
+        const base_64 = Buffer.from(reader).toString('base64');
+        return base_64;
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+exports.imageToBase64 = imageToBase64;
