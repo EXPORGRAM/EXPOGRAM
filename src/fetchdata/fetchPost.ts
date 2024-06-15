@@ -1,4 +1,4 @@
-import { db, firebase, getFirestore, collection, getDocs, query, orderBy, limit } from "../firebaseconfig/firebase"
+import { db, collection, getDocs, query, orderBy, limit } from "../firebaseconfig/firebase"
 
 type post = {
     id: string,

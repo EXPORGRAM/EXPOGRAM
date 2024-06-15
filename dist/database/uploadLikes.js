@@ -28,7 +28,7 @@ const handlepostlikes = (post, currentUserEmail, currentUserUsername, currentUse
                     ? [currentUserUsername, currentUserProfile]
                     : []
             });
-            firebase_1.db
+            yield firebase_1.db
                 .collection("users")
                 .doc(post.email)
                 .update({

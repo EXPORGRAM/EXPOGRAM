@@ -1,6 +1,6 @@
 import { db, firebase } from "../firebaseconfig/firebase";
 
-export const fetchstories = (): Promise<any> => {
+export const fetchstories = (): Promise<object[] | string> => {
     return new Promise((resolve, reject): void => {
         try {
             firebase
@@ -13,7 +13,7 @@ export const fetchstories = (): Promise<any> => {
                 resolve(stories)
             })
         } catch (error) {
-            reject(error)
+            reject(error as string)
         }
     })
 }

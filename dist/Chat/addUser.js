@@ -27,6 +27,7 @@ const addUser = (user, currentUserEmail) => {
                 .collection('chat')
                 .doc(user.email)
                 .set(newUser);
+            resolve(true);
         }
         catch (error) {
             reject(error);

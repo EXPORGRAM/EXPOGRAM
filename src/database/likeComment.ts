@@ -1,6 +1,6 @@
 import { db, firebase } from "../firebaseconfig/firebase";
 
-export const likeComment = (singleComment: any, tagetedIndex: number, allcomments: any, user_email: string, post_id: string,currentUserEmail: string): Promise<object[] | string | any>=> {
+export const likeComment = (singleComment: any, tagetedIndex: number, allcomments: any, user_email: string, post_id: string,currentUserEmail: string): Promise<boolean | string>=> {
     return new Promise(async (resolve, reject): Promise<void> =>{
         try {
             const currentLikesStatus = singleComment.likes_by_users.includes(
@@ -26,9 +26,9 @@ export const likeComment = (singleComment: any, tagetedIndex: number, allcomment
                         comments: updatedValues
                     })
 
-            resolve(updatedValues)
+            resolve(true)
         } catch (error) {
-            reject(error)
+            reject(error as string)
         }
     })
 }

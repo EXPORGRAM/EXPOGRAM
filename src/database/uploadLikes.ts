@@ -33,7 +33,7 @@ export const handlepostlikes = (post: post, currentUserEmail: string,currentUser
                     : []
             })
 
-            db
+            await db
             .collection("users")
             .doc(post.email)
             .update({

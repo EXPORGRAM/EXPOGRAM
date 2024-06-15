@@ -3,7 +3,7 @@ import {
   firebase,
 } from "../firebaseconfig/firebase";
 
-export const uploadStory = (imageUrl: string,username: string,name: string,profile_picture: string,user_id: string,user_email: string,): Promise<boolean | any> => {
+export const uploadStory = (imageUrl: string,username: string,name: string,profile_picture: string,user_id: string,user_email: string,): Promise<boolean | string> => {
   return new Promise(async (resolve, reject) => {
     try {
         const newStory = {
@@ -25,7 +25,7 @@ export const uploadStory = (imageUrl: string,username: string,name: string,profi
         .add(newStory)
         resolve(true)
     } catch (error) {
-        reject(error)
+        reject(error as string)
     }
   });
 };

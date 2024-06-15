@@ -4,6 +4,7 @@ type user ={
     user_id: string,
     email: string,  
     username: string,
+    name: string,
     profile_picture: string,
     bio: string,
     link: string
@@ -22,7 +23,7 @@ type user ={
     country: string
 }
 
-export const fecthRequest = (user: user ): Promise<object[] | string | any> => {
+export const fecthRequest = (user: user ): Promise<object[] | string> => {
     return new Promise((resolve, reject): void => {
         try {
             if(user.followersRequset.length <= 0){
@@ -40,7 +41,7 @@ export const fecthRequest = (user: user ): Promise<object[] | string | any> => {
                 })
             }
         } catch (error) {
-            reject(error)
+            reject(error as string)
         }
     })
 }
