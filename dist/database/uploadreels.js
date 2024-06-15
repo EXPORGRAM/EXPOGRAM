@@ -9,27 +9,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.likeComment = void 0;
+exports.uploadReel = void 0;
 const firebase_1 = require("../firebaseconfig/firebase");
-const likeComment = (singleComment, tagetedIndex, allcomments, user_email, post_id, currentUserEmail) => {
+const uploadReel = (username, user_id, email, profile_picture, videoUrl, caption) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const currentLikesStatus = singleComment.likes_by_users.includes(currentUserEmail);
-            let updatedValues = allcomments;
-            if (currentLikesStatus === true) {
-                updatedValues[tagetedIndex].likes_by_users = updatedValues[tagetedIndex].likes_by_users.replace(currentUserEmail + ',', '');
-            }
-            else {
-                updatedValues[tagetedIndex].likes_by_users += currentUserEmail + ',';
-            }
+            const reel = {
+                username: username,
+                user_id: user_id,
+                email: email,
+                profile_picture: profile_picture,
+                videoUrl: videoUrl,
+                caption: caption,
+                created_at: firebase_1.firebase.firestore.FieldValue.serverTimestamp(),
+                likes_by_users: [],
+                new_likes: [],
+                comments: []
+            };
             yield firebase_1.db
                 .collection('users')
-                .doc(user_email)
-                .collection('Post')
-                .doc(post_id)
-                .update({
-                comments: updatedValues
-            });
+                .doc(email)
+                .collection('reels')
+                .add(reel);
             resolve(true);
         }
         catch (error) {
@@ -37,4 +38,4 @@ const likeComment = (singleComment, tagetedIndex, allcomments, user_email, post_
         }
     }));
 };
-exports.likeComment = likeComment;
+exports.uploadReel = uploadReel;

@@ -9,32 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.likeComment = void 0;
-const firebase_1 = require("../firebaseconfig/firebase");
-const likeComment = (singleComment, tagetedIndex, allcomments, user_email, post_id, currentUserEmail) => {
+exports.saveChat = void 0;
+const firebase_1 = require("../../firebaseconfig/firebase");
+const saveChat = (curreUserEmail) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const currentLikesStatus = singleComment.likes_by_users.includes(currentUserEmail);
-            let updatedValues = allcomments;
-            if (currentLikesStatus === true) {
-                updatedValues[tagetedIndex].likes_by_users = updatedValues[tagetedIndex].likes_by_users.replace(currentUserEmail + ',', '');
-            }
-            else {
-                updatedValues[tagetedIndex].likes_by_users += currentUserEmail + ',';
-            }
-            yield firebase_1.db
+            const newChat = {
+                user: [],
+                imageUrl: [],
+                videoUrl: [],
+                audioRecord: [],
+                Ai: [],
+                created_at: firebase_1.firebase.firestore.FieldValue.serverTimestamp()
+            };
+            const store = yield firebase_1.db
                 .collection('users')
-                .doc(user_email)
-                .collection('Post')
-                .doc(post_id)
-                .update({
-                comments: updatedValues
-            });
-            resolve(true);
+                .doc(curreUserEmail)
+                .collection('chat with ai')
+                .add(newChat);
+            resolve(store.id);
         }
         catch (error) {
             reject(error);
         }
     }));
 };
-exports.likeComment = likeComment;
+exports.saveChat = saveChat;

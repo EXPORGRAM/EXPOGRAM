@@ -14,13 +14,13 @@ const firebase_1 = require("../firebaseconfig/firebase");
 const database_1 = require("../database/database");
 const firebase_2 = require("../firebaseconfig/firebase");
 const auth_1 = require("firebase/auth");
-const onRegister = (email, username, password, country, profile_picture) => {
+const onRegister = (email, username, password, country, profile_picture, bio, link) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         var _a;
         try {
             const authUsers = yield firebase_1.firebase.auth().createUserWithEmailAndPassword(email, password);
             if (((_a = authUsers.user) === null || _a === void 0 ? void 0 : _a.uid) && authUsers.user.email) {
-                const create = yield (0, database_1.storeUserDetails)(authUsers.user.uid, authUsers.user.email, username, country, profile_picture);
+                const create = yield (0, database_1.storeUserDetails)(authUsers.user.uid, authUsers.user.email, username, country, profile_picture, bio, link);
                 if (create) {
                     resolve(true);
                 }

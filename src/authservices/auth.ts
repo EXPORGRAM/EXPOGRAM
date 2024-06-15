@@ -3,12 +3,12 @@ import { storeUserDetails } from "../database/database";
 import { auth, signInWithPopup, GoogleAuthProvider, getRedirectResult } from "../firebaseconfig/firebase";
 import { signInWithRedirect } from "firebase/auth";
 
-export const onRegister = (email: string,username: string, password: string, country: string, profile_picture: string): Promise<boolean | any> => {
+export const onRegister = (email: string,username: string, password: string, country: string, profile_picture: string, bio: string, link: string): Promise<boolean | any> => {
     return new Promise(async (resolve, reject): Promise<void>=> {  
         try {
             const authUsers = await firebase.auth().createUserWithEmailAndPassword(email, password);
             if(authUsers.user?.uid && authUsers.user.email){
-                const create = await storeUserDetails(authUsers.user.uid,authUsers.user.email, username, country, profile_picture);
+                const create = await storeUserDetails(authUsers.user.uid,authUsers.user.email, username, country, profile_picture, bio, link);
                 if(create){
                     resolve(true);
                 }
