@@ -9,17 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.saveChat = void 0;
+exports.updateChatWithAi = exports.initiateChat = void 0;
 const firebase_1 = require("../../firebaseconfig/firebase");
-const saveChat = (curreUserEmail) => {
+const initiateChat = (curreUserEmail, chatId, text, aiReply, imageUrl) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const newChat = {
-                user: [],
-                imageUrl: [],
-                videoUrl: [],
-                audioRecord: [],
-                Ai: [],
+                user: text,
+                imageUrl: imageUrl,
+                Ai: aiReply,
                 created_at: firebase_1.firebase.firestore.FieldValue.serverTimestamp()
             };
             const store = yield firebase_1.db
@@ -34,4 +32,32 @@ const saveChat = (curreUserEmail) => {
         }
     }));
 };
-exports.saveChat = saveChat;
+exports.initiateChat = initiateChat;
+const updateChatWithAi = (currentUserEmail, chatId, text, aiReply, imageUrl) => {
+    return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const snapshot = yield firebase_1.db
+                .collection('users')
+                .doc(currentUserEmail)
+                .collection('chat with ai')
+                .doc(chatId)
+                .get();
+            if (snapshot.exists) {
+                const chatRef = snapshot.ref;
+                const newChat = {
+                    user: text,
+                    imageUrl: imageUrl,
+                    Ai: aiReply,
+                    created_at: firebase_1.firebase.firestore.FieldValue.serverTimestamp()
+                };
+                yield chatRef.update({
+                    chat: firebase_1.firebase.firestore.FieldValue.arrayUnion(newChat)
+                });
+                resolve('Chat updated');
+            }
+        }
+        catch (error) {
+        }
+    }));
+};
+exports.updateChatWithAi = updateChatWithAi;
