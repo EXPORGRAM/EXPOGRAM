@@ -9,17 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.useChat = void 0;
 const config_1 = require("../AiConfig/config");
-// import { saveChat } from '../History/chatAiDb'
-// import { db, firebase } from '../../firebaseconfig/firebase'
-const utils_1 = require("../urtils/utils");
-let url = 'https://gemini.google.com';
-const useChat = (text, imageUrl) => {
+const useChat = (text, image) => {
     return new Promise((resolve, reject) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            let reply;
-            if (text && imageUrl) {
-                const image = yield (0, utils_1.imageToBase64)(imageUrl);
+            if (text && image) {
                 if (image) {
                     const results = yield config_1.model.generateContent([
                         text,
@@ -29,8 +24,8 @@ const useChat = (text, imageUrl) => {
                 }
             }
             else {
-                reply = yield config_1.chatSession.sendMessage(text);
-                resolve(reply.response.text());
+                const result = yield config_1.chatSession.sendMessage(text);
+                resolve(result.response.text());
             }
         }
         catch (error) {
@@ -38,14 +33,12 @@ const useChat = (text, imageUrl) => {
         }
     }));
 };
-function test() {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield useChat('what is this photo', 'C:\\Users\\caleb\\Desktop\\EXPOGRAM\\assets\\icon.png').then((succ) => {
-            console.log(succ);
-        }).catch((fail) => {
-            console.log(fail);
-        });
-    });
-}
-/*'https://cff2.earth.com/uploads/2022/12/16142438/Black-bears-2-scaled.jpg'*/
-test();
+exports.useChat = useChat;
+// async function test(){
+//     await useChat('Hello').then((succ) =>{ 
+//         console.log(succ)
+//     }).catch((fail) =>{
+//         console.log(fail)
+//     })
+// }
+// test()

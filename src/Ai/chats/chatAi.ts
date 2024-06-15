@@ -1,14 +1,9 @@
 import { model,chatSession } from "../AiConfig/config";
-// import { saveChat } from '../History/chatAiDb'
-// import { db, firebase } from '../../firebaseconfig/firebase'
-import { imageToBase64 } from "../urtils/utils";
 
-const useChat = (text: string, imageUrl?: string) =>{
+export const useChat = (text: string, image?: string) =>{
     return new Promise( async(resolve, reject) =>{
         try {
-            let reply
-            if(text && imageUrl){
-                const image: string|undefined = await imageToBase64(imageUrl)
+            if(text && image){
               if(image){
                 const results = await model.generateContent([
                     text,
@@ -17,8 +12,8 @@ const useChat = (text: string, imageUrl?: string) =>{
                 resolve(results.response.text())
               }
             }else{
-                reply = await chatSession.sendMessage(text)
-                resolve(reply.response.text())
+                const result = await chatSession.sendMessage(text)
+                resolve(result.response.text())
             }
         } catch (error) {
             reject(error)
@@ -26,13 +21,12 @@ const useChat = (text: string, imageUrl?: string) =>{
     })
 }
 
-async function test(){
-    await useChat('what is this photo', 'C:\\Users\\caleb\\Desktop\\EXPOGRAM\\assets\\icon.png').then((succ) =>{ 
-        console.log(succ)
-    }).catch((fail) =>{
-        console.log(fail)
-    })
+// async function test(){
+//     await useChat('Hello').then((succ) =>{ 
+//         console.log(succ)
+//     }).catch((fail) =>{
+//         console.log(fail)
+//     })
     
-}
-/*'https://cff2.earth.com/uploads/2022/12/16142438/Black-bears-2-scaled.jpg'*/
-test()
+// }
+// test()
